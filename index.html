@@ -9,12 +9,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        body.light-mode { background-color: #f9fafb; }
+        body.dark-mode { background-color: #111827; }
+        body.dark-mode .bg-gray-50 { background-color: #1f2937 !important; }
+        body.dark-mode .bg-white { background-color: #1f2937 !important; }
+        body.dark-mode .text-gray-900 { color: #f9fafb !important; }
+        body.dark-mode .text-gray-700 { color: #d1d5db !important; }
+        body.dark-mode .text-gray-500 { color: #9ca3af !important; }
+        body.dark-mode .border-gray-200 { border-color: #374151 !important; }
         .sidebar { width: 220px; transition: all 0.3s; }
         @media (max-width: 768px) { .sidebar { width: 70px; } .sidebar span { display: none; } }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 light-mode">
     <div id="authScreen" class="fixed inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center z-50">
         <div class="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md">
             <div class="text-center mb-8">
@@ -53,10 +61,6 @@
                 <button onclick="showTab('dashboard')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white bg-gradient-to-r from-indigo-600 to-purple-600 shadow-md font-medium transition transform hover:scale-105" data-tab="dashboard">
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                     <span>Dashboard</span>
-                </button>
-                <button onclick="showTab('transactions')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 font-medium transition" data-tab="transactions">
-                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                    <span>Transactions</span>
                 </button>
                 <button onclick="showTab('analytics')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-100 font-medium transition" data-tab="analytics">
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
@@ -99,42 +103,44 @@
                             <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
                                 <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 11l5-5m0 0l5 5m-5-5v12"/></svg>
                             </div>
-                            <span class="text-xs font-bold text-green-600 bg-green-100 px-3 py-1 rounded-full">+12.5%</span>
+                            <span class="text-xs font-bold text-gray-400 bg-gray-100 px-3 py-1 rounded-full">0%</span>
                         </div>
                         <p class="text-sm text-gray-500 font-medium mb-1">Total Income</p>
-                        <h2 class="text-4xl font-bold text-gray-900">$4,856.20</h2>
+                        <h2 class="text-4xl font-bold text-gray-900" id="totalIncome">$0.00</h2>
                     </div>
                     <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                         <div class="flex items-center justify-between mb-4">
                             <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
                                 <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 13l-5 5m0 0l-5-5m5 5V6"/></svg>
                             </div>
-                            <span class="text-xs font-bold text-red-600 bg-red-100 px-3 py-1 rounded-full">+8.2%</span>
+                            <span class="text-xs font-bold text-gray-400 bg-gray-100 px-3 py-1 rounded-full">0%</span>
                         </div>
                         <p class="text-sm text-gray-500 font-medium mb-1">Total Expenses</p>
-                        <h2 class="text-4xl font-bold text-gray-900">$1,425.75</h2>
+                        <h2 class="text-4xl font-bold text-gray-900" id="totalExpenses">$0.00</h2>
                     </div>
                     <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                         <div class="flex items-center justify-between mb-4">
                             <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
                                 <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             </div>
-                            <span class="text-xs font-bold text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full">+18.7%</span>
+                            <span class="text-xs font-bold text-gray-400 bg-gray-100 px-3 py-1 rounded-full">0%</span>
                         </div>
                         <p class="text-sm text-gray-500 font-medium mb-1">Net Balance</p>
-                        <h2 class="text-4xl font-bold text-gray-900">$3,430.45</h2>
+                        <h2 class="text-4xl font-bold text-gray-900" id="netBalance">$0.00</h2>
                     </div>
                 </div>
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-lg transition">
                         <h3 class="text-xl font-bold text-gray-900 mb-6">Income vs Expenses</h3>
-                        <div class="flex justify-center">
-                            <canvas id="donutChart" style="max-width: 300px; max-height: 300px;"></canvas>
+                        <div class="flex justify-center items-center h-64">
+                            <p class="text-gray-400 text-center">No transactions yet.<br/>Start by adding a transaction!</p>
                         </div>
                     </div>
                     <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-lg transition">
                         <h3 class="text-xl font-bold text-gray-900 mb-6">Budget Overview</h3>
-                        <div class="space-y-5" id="budgets"></div>
+                        <div class="flex justify-center items-center h-64">
+                            <p class="text-gray-400 text-center">No budgets created yet.<br/>Add your first budget!</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -164,12 +170,6 @@
                         <button onclick="calcAppend('.')" class="bg-gray-100 hover:bg-gray-200 text-gray-900 p-5 rounded-xl font-bold text-xl transition transform hover:scale-105 active:scale-95 shadow-sm">.</button>
                         <button onclick="calcEquals()" class="bg-gradient-to-r from-indigo-600 to-purple-600 hover:shadow-xl text-white p-5 rounded-xl font-bold text-xl transition transform hover:scale-105 active:scale-95 shadow-md">=</button>
                     </div>
-                </div>
-            </div>
-            <div id="transactionsTab" class="tab-content hidden p-8">
-                <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Transactions</h3>
-                    <p class="text-gray-500">Transaction history coming soon...</p>
                 </div>
             </div>
             <div id="analyticsTab" class="tab-content hidden p-8">
@@ -227,7 +227,7 @@
                 document.getElementById('authScreen').classList.add('hidden');
                 document.getElementById('mainApp').classList.remove('hidden');
                 document.getElementById('userName').textContent = 'Welcome back, ' + user.name + '!';
-                initChart();
+                loadUserData();
             } else {
                 alert('Invalid credentials');
             }
@@ -237,10 +237,23 @@
             location.reload();
         }
         function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            document.getElementById('themeText').textContent = isDark ? 'Light Mode' : 'Dark Mode';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            const body = document.body;
+            const sunIcon = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>';
+            const moonIcon = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+            
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                document.getElementById('themeIcon').innerHTML = sunIcon;
+                document.getElementById('themeText').textContent = 'Light Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                document.getElementById('themeIcon').innerHTML = moonIcon;
+                document.getElementById('themeText').textContent = 'Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
         }
         function showTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
@@ -279,49 +292,11 @@
                 calcValue = '0';
             }
         }
-        function initChart() {
-            const ctx = document.getElementById('donutChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Income', 'Expenses'],
-                    datasets: [{
-                        data: [4856.20, 1425.75],
-                        backgroundColor: ['rgb(99, 102, 241)', 'rgb(239, 68, 68)'],
-                        borderWidth: 0,
-                        hoverOffset: 10
-                    }]
-                },
-                options: {
-                    cutout: '75%',
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
+        function loadUserData() {
+            document.getElementById('totalIncome').textContent = '$0.00';
+            document.getElementById('totalExpenses').textContent = '$0.00';
+            document.getElementById('netBalance').textContent = '$0.00';
         }
-        const budgets = [
-            { name: 'Food & Dining', spent: 456.68, total: 600, color: '#ef4444' },
-            { name: 'Utilities', spent: 285.49, total: 350, color: '#f59e0b' },
-            { name: 'Transportation', spent: 198.50, total: 250, color: '#6366f1' },
-            { name: 'Entertainment', spent: 125.49, total: 200, color: '#8b5cf6' },
-            { name: 'Shopping', spent: 289.99, total: 400, color: '#ec4899' },
-            { name: 'Healthcare', spent: 69.60, total: 150, color: '#06b6d4' }
-        ];
-        document.getElementById('budgets').innerHTML = budgets.map(b => 
-            '<div>' +
-                '<div class="flex justify-between items-center text-sm mb-2">' +
-                    '<span class="text-gray-700 font-medium">' + b.name + '</span>' +
-                    '<span class="text-gray-900 font-bold">$' + b.spent.toFixed(2) + ' <span class="text-gray-500 font-normal">/ $' + b.total + '</span></span>' +
-                '</div>' +
-                '<div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">' +
-                    '<div class="h-3 rounded-full transition-all duration-500" style="width:' + (b.spent / b.total * 100).toFixed(0) + '%;background:' + b.color + '"></div>' +
-                '</div>' +
-            '</div>'
-        ).join('');
         window.onload = function() {
             const currentUser = localStorage.getItem('currentUser');
             if (currentUser) {
@@ -329,7 +304,14 @@
                 document.getElementById('authScreen').classList.add('hidden');
                 document.getElementById('mainApp').classList.remove('hidden');
                 document.getElementById('userName').textContent = 'Welcome back, ' + user.name + '!';
-                initChart();
+                loadUserData();
+            }
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') {
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeIcon').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>';
+                document.getElementById('themeText').textContent = 'Light Mode';
             }
         };
     </script>
