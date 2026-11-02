@@ -7,9 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        <style>
+            <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; font-size: 14px; }
         
         /* Light Mode */
         body.light-mode { background-color: #f9fafb; }
@@ -21,7 +21,7 @@
         body.light-mode .border-gray-200 { border-color: #e5e7eb !important; }
         body.light-mode .nav-btn:hover { background-color: #f3f4f6 !important; }
         
-        /* Dark Mode - Black background with RED accents */
+        /* Dark Mode - Black & Red theme like reference */
         body.dark-mode { background-color: #000000; }
         body.dark-mode .bg-gray-50 { background-color: #0a0a0a !important; }
         body.dark-mode .bg-white { background-color: #1a1a1a !important; }
@@ -30,30 +30,80 @@
         body.dark-mode .text-gray-500 { color: #a3a3a3 !important; }
         body.dark-mode .border-gray-200 { border-color: #2a2a2a !important; }
         
-        /* Dark Mode - RED Navigation Buttons */
-        body.dark-mode .nav-btn { color: #ffffff !important; background-color: #1a1a1a !important; border: 2px solid #dc2626 !important; }
-        body.dark-mode .nav-btn:hover { background-color: #dc2626 !important; color: #ffffff !important; transform: scale(1.05); }
-        body.dark-mode .nav-btn.active { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important; color: #ffffff !important; border-color: #dc2626 !important; }
+        /* Dark Mode - RED Navigation Buttons (smaller & compact) */
+        body.dark-mode .nav-btn { 
+            color: #ffffff !important; 
+            background-color: #1a1a1a !important; 
+            border: 1.5px solid #dc2626 !important;
+            padding: 10px 14px !important;
+            font-size: 13px !important;
+        }
+        body.dark-mode .nav-btn:hover { 
+            background-color: #dc2626 !important; 
+            color: #ffffff !important; 
+            transform: scale(1.03); 
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.4);
+        }
+        body.dark-mode .nav-btn.active { 
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important; 
+            color: #ffffff !important; 
+            border-color: #dc2626 !important;
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+        }
         
-        /* Dark Mode - RED Cards */
-        body.dark-mode .bg-white.rounded-2xl { background-color: #1a1a1a !important; border: 2px solid #dc2626 !important; }
-        body.dark-mode .bg-white.rounded-2xl:hover { border-color: #ef4444 !important; box-shadow: 0 0 20px rgba(220, 38, 38, 0.3) !important; }
+        /* Dark Mode - RED Cards (smaller & more compact) */
+        body.dark-mode .bg-white.rounded-2xl { 
+            background-color: #1a1a1a !important; 
+            border: 1.5px solid #dc2626 !important;
+            padding: 16px !important;
+        }
+        body.dark-mode .bg-white.rounded-2xl:hover { 
+            border-color: #ef4444 !important; 
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.3) !important; 
+        }
+        
+        /* Smaller text sizes */
+        .text-4xl { font-size: 2rem !important; line-height: 1.2 !important; }
+        .text-3xl { font-size: 1.5rem !important; line-height: 1.3 !important; }
+        .text-xl { font-size: 1.125rem !important; }
+        .text-lg { font-size: 1rem !important; }
+        .text-sm { font-size: 0.8125rem !important; }
+        .text-xs { font-size: 0.6875rem !important; }
+        
+        /* Compact padding */
+        .p-8 { padding: 1.25rem !important; }
+        .p-6 { padding: 1rem !important; }
+        .p-5 { padding: 0.875rem !important; }
+        .py-6 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+        .px-8 { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+        .gap-6 { gap: 1rem !important; }
+        .mb-8 { margin-bottom: 1.25rem !important; }
+        .mb-6 { margin-bottom: 1rem !important; }
         
         /* Better hover states for light mode */
-        body.light-mode .nav-btn:hover { background-color: #e5e7eb !important; color: #111827 !important; }
+        body.light-mode .nav-btn:hover { 
+            background-color: #e5e7eb !important; 
+            color: #111827 !important; 
+        }
         
-        .sidebar { width: 220px; transition: all 0.3s; }
-        @media (max-width: 768px) { .sidebar { width: 70px; } .sidebar span { display: none; } }
+        /* Compact sidebar */
+        .sidebar { width: 200px; transition: all 0.3s; }
+        @media (max-width: 768px) { .sidebar { width: 60px; } .sidebar span { display: none; } }
+        
+        /* Compact icon sizes */
+        .w-12 { width: 2.5rem !important; height: 2.5rem !important; }
+        .w-11 { width: 2.25rem !important; height: 2.25rem !important; }
+        .w-20 { width: 4rem !important; height: 4rem !important; }
     </style>
 </head>
 <body class="bg-gray-50 light-mode">
     <div id="authScreen" class="fixed inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center z-50">
-        <div class="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
             <div class="text-center mb-8">
-                <div class="w-20 h-20 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg">
+                <div class="w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg">
                     <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
-                <h1 class="text-3xl font-bold text-gray-900 mb-2">Finance Tracker Pro</h1>
+                <h1 class="text-2xl font-bold text-gray-900 mb-2">Finance Tracker Pro</h1>
                 <p class="text-gray-500">Smart financial management</p>
             </div>
             <div id="loginForm">
@@ -114,10 +164,10 @@
             <header class="bg-white border-b border-gray-200 px-8 py-6 sticky top-0 z-10 shadow-sm">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+                        <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
                         <p class="text-sm text-gray-500 mt-1" id="userName">Welcome back!</p>
                     </div>
-                    <button class="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition transform hover:scale-105">+ Add Transaction</button>
+                    <button class="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition transform hover:scale-105">+ Add Transaction</button>
                 </div>
             </header>
             <div id="dashboardTab" class="tab-content p-8">
@@ -130,7 +180,7 @@
                             <span class="text-xs font-bold text-gray-400 bg-gray-100 px-3 py-1 rounded-full">0%</span>
                         </div>
                         <p class="text-sm text-gray-500 font-medium mb-1">Total Income</p>
-                        <h2 class="text-4xl font-bold text-gray-900" id="totalIncome">$0.00</h2>
+                        <h2 class="text-3xl font-bold text-gray-900" id="totalIncome">$0.00</h2>
                     </div>
                     <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                         <div class="flex items-center justify-between mb-4">
@@ -140,7 +190,7 @@
                             <span class="text-xs font-bold text-gray-400 bg-gray-100 px-3 py-1 rounded-full">0%</span>
                         </div>
                         <p class="text-sm text-gray-500 font-medium mb-1">Total Expenses</p>
-                        <h2 class="text-4xl font-bold text-gray-900" id="totalExpenses">$0.00</h2>
+                        <h2 class="text-3xl font-bold text-gray-900" id="totalExpenses">$0.00</h2>
                     </div>
                     <div class="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                         <div class="flex items-center justify-between mb-4">
@@ -150,18 +200,18 @@
                             <span class="text-xs font-bold text-gray-400 bg-gray-100 px-3 py-1 rounded-full">0%</span>
                         </div>
                         <p class="text-sm text-gray-500 font-medium mb-1">Net Balance</p>
-                        <h2 class="text-4xl font-bold text-gray-900" id="netBalance">$0.00</h2>
+                        <h2 class="text-3xl font-bold text-gray-900" id="netBalance">$0.00</h2>
                     </div>
                 </div>
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-lg transition">
-                        <h3 class="text-xl font-bold text-gray-900 mb-6">Income vs Expenses</h3>
+                        <h3 class="text-lg font-bold text-gray-900 mb-6">Income vs Expenses</h3>
                         <div class="flex justify-center items-center h-64">
                             <p class="text-gray-400 text-center">No transactions yet.<br/>Start by adding a transaction!</p>
                         </div>
                     </div>
                     <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-lg transition">
-                        <h3 class="text-xl font-bold text-gray-900 mb-6">Budget Overview</h3>
+                        <h3 class="text-lg font-bold text-gray-900 mb-6">Budget Overview</h3>
                         <div class="flex justify-center items-center h-64">
                             <p class="text-gray-400 text-center">No budgets created yet.<br/>Add your first budget!</p>
                         </div>
@@ -170,7 +220,7 @@
             </div>
             <div id="calculatorTab" class="tab-content hidden p-8">
                 <div class="max-w-md mx-auto bg-white rounded-2xl p-6 border border-gray-200 shadow-xl">
-                    <h3 class="text-xl font-bold text-gray-900 mb-6">Calculator</h3>
+                    <h3 class="text-lg font-bold text-gray-900 mb-6">Calculator</h3>
                     <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-5 mb-6 border border-gray-200">
                         <input type="text" id="calcDisplay" readonly class="w-full bg-transparent text-right text-5xl font-bold text-gray-900 outline-none" value="0">
                     </div>
@@ -198,13 +248,13 @@
             </div>
             <div id="analyticsTab" class="tab-content hidden p-8">
                 <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Analytics</h3>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Analytics</h3>
                     <p class="text-gray-500">Advanced analytics dashboard coming soon...</p>
                 </div>
             </div>
             <div id="settingsTab" class="tab-content hidden p-8">
                 <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Settings</h3>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Settings</h3>
                     <p class="text-gray-500">Account settings coming soon...</p>
                 </div>
             </div>
@@ -341,5 +391,7 @@
     </script>
 </body>
 </html>
+
+
 
 
