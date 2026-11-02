@@ -7,17 +7,41 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
+        <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        
+        /* Light Mode */
         body.light-mode { background-color: #f9fafb; }
-        body.dark-mode { background-color: #111827; }
-        body.dark-mode .bg-gray-50 { background-color: #1f2937 !important; }
-        body.dark-mode .bg-white { background-color: #1f2937 !important; }
-        body.dark-mode .text-gray-900 { color: #f9fafb !important; }
-        body.dark-mode .text-gray-700 { color: #d1d5db !important; }
-        body.dark-mode .text-gray-500 { color: #9ca3af !important; }
-        body.dark-mode .border-gray-200 { border-color: #374151 !important; }
+        body.light-mode .bg-gray-50 { background-color: #f9fafb !important; }
+        body.light-mode .bg-white { background-color: #ffffff !important; }
+        body.light-mode .text-gray-900 { color: #111827 !important; }
+        body.light-mode .text-gray-700 { color: #374151 !important; }
+        body.light-mode .text-gray-500 { color: #6b7280 !important; }
+        body.light-mode .border-gray-200 { border-color: #e5e7eb !important; }
+        body.light-mode .nav-btn:hover { background-color: #f3f4f6 !important; }
+        
+        /* Dark Mode - Black background with RED accents */
+        body.dark-mode { background-color: #000000; }
+        body.dark-mode .bg-gray-50 { background-color: #0a0a0a !important; }
+        body.dark-mode .bg-white { background-color: #1a1a1a !important; }
+        body.dark-mode .text-gray-900 { color: #ffffff !important; }
+        body.dark-mode .text-gray-700 { color: #e5e5e5 !important; }
+        body.dark-mode .text-gray-500 { color: #a3a3a3 !important; }
+        body.dark-mode .border-gray-200 { border-color: #2a2a2a !important; }
+        
+        /* Dark Mode - RED Navigation Buttons */
+        body.dark-mode .nav-btn { color: #ffffff !important; background-color: #1a1a1a !important; border: 2px solid #dc2626 !important; }
+        body.dark-mode .nav-btn:hover { background-color: #dc2626 !important; color: #ffffff !important; transform: scale(1.05); }
+        body.dark-mode .nav-btn.active { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important; color: #ffffff !important; border-color: #dc2626 !important; }
+        
+        /* Dark Mode - RED Cards */
+        body.dark-mode .bg-white.rounded-2xl { background-color: #1a1a1a !important; border: 2px solid #dc2626 !important; }
+        body.dark-mode .bg-white.rounded-2xl:hover { border-color: #ef4444 !important; box-shadow: 0 0 20px rgba(220, 38, 38, 0.3) !important; }
+        
+        /* Better hover states for light mode */
+        body.light-mode .nav-btn:hover { background-color: #e5e7eb !important; color: #111827 !important; }
+        
         .sidebar { width: 220px; transition: all 0.3s; }
         @media (max-width: 768px) { .sidebar { width: 70px; } .sidebar span { display: none; } }
     </style>
@@ -58,7 +82,7 @@
                 </div>
             </div>
             <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
-                <button onclick="showTab('dashboard')" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white bg-gradient-to-r from-indigo-600 to-purple-600 shadow-md font-medium transition transform hover:scale-105" data-tab="dashboard">
+                <button onclick="showTab('dashboard')" class="nav-btn active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white bg-gradient-to-r from-indigo-600 to-purple-600 shadow-md font-medium transition transform hover:scale-105" data-tab="dashboard">
                     <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                     <span>Dashboard</span>
                 </button>
@@ -258,13 +282,13 @@
         function showTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('text-white', 'bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'shadow-md');
-                btn.classList.add('text-gray-700', 'hover:bg-gray-100');
+                btn.classList.remove('active', 'text-white', 'bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'shadow-md');
+                btn.classList.add('text-gray-700');
             });
             document.getElementById(tabName + 'Tab').classList.remove('hidden');
             const activeBtn = document.querySelector('[data-tab="' + tabName + '"]');
-            activeBtn.classList.add('text-white', 'bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'shadow-md');
-            activeBtn.classList.remove('text-gray-700', 'hover:bg-gray-100');
+            activeBtn.classList.add('active', 'text-white', 'bg-gradient-to-r', 'from-indigo-600', 'to-purple-600', 'shadow-md');
+            activeBtn.classList.remove('text-gray-700');
         }
         let calcValue = '0';
         function calcAppend(val) {
@@ -317,3 +341,5 @@
     </script>
 </body>
 </html>
+
+
